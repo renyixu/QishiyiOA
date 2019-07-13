@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.qishiyi.oa.domain.Application" table="itcast_application" lazy="false">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="title" />
+		<property name="applyTime"/>
+		<property name="status"/>
+		<property name="filePath"/>
+		
+		<!-- 配置申请和模板的多对一关系 -->
+		<many-to-one name="template" class="com.qishiyi.oa.domain.Template" column="templateId"  lazy="false"/>
+		
+		<!-- 配置申请和申请人的多对一关系 -->
+		<many-to-one name="applicant" class="com.qishiyi.oa.domain.User" column="userId" lazy="false"/>
+		
+		<!-- 配置申请和审批的一对多关系 -->
+		<set name="approveInfos" lazy="false">
+			<key column="applicationId"></key>
+			<one-to-many class="com.qishiyi.oa.domain.ApproveInfo"/>
+		</set>
+	</class>
+</hibernate-mapping>
